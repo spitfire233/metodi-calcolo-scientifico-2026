@@ -8,13 +8,14 @@ public class MatrixAlg {
     public static boolean isMatrixSquared(double[][] matrix) {
         boolean isSquared = true;
         int i = 0;
-        while(i < matrix.length && isSquared) {
-            if(matrix[i].length != matrix.length)
+        while (i < matrix.length && isSquared) {
+            if (matrix[i].length != matrix.length)
                 isSquared = false;
             i++;
         }
         return isSquared;
     }
+
 
     public static boolean isMatrixLowerTriangular(double[][] matrix) throws IllegalArgumentException {
         if (!isMatrixSquared(matrix))
