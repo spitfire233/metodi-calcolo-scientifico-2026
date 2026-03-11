@@ -5,7 +5,7 @@ import static unimib.scm.utils.Constants.MATRIX_NOT_SQUARED_ERROR_MSG;
 public class MatrixAlg {
 
 
-    public static <N extends Number> boolean isMatrixSquared(N[][] matrix) {
+    public static boolean isMatrixSquared(double[][] matrix) {
         boolean isSquared = true;
         int i = 0;
         while(i < matrix.length && isSquared) {
@@ -16,15 +16,16 @@ public class MatrixAlg {
         return isSquared;
     }
 
-    public static <N extends Number> boolean isMatrixLowerTriangular(N[][] matrix) throws IllegalArgumentException {
+    public static boolean isMatrixLowerTriangular(double[][] matrix) throws IllegalArgumentException {
         if (!isMatrixSquared(matrix))
             throw new IllegalArgumentException(MATRIX_NOT_SQUARED_ERROR_MSG);
+
         boolean isLowerTriangular = true;
         int i = 0;
         while(i < matrix.length && isLowerTriangular) {
             int j = i + 1;
             while (j < matrix[i].length) {
-                if(matrix[i][j].doubleValue() != 0.0)
+                if(matrix[i][j] != 0.0)
                     isLowerTriangular = false;
                 j++;
             }
@@ -33,15 +34,15 @@ public class MatrixAlg {
         return isLowerTriangular;
     }
 
-    public static <N extends Number> boolean isMatrixUpperTriangular(N[][] matrix) throws IllegalArgumentException {
+    public static boolean isMatrixUpperTriangular(double[][] matrix) throws IllegalArgumentException {
         if(!isMatrixSquared(matrix))
             throw new IllegalArgumentException(MATRIX_NOT_SQUARED_ERROR_MSG);
         boolean isUpperTriangular = true;
         int i = matrix.length - 1;
-        while (i > 0 && isUpperTriangular) {
+        while (i >= 0 && isUpperTriangular) {
             int j = i - 1;
-            while (j > matrix[i].length) {
-                if(matrix[i][j].doubleValue() != 0.0)
+            while (j >= 0) {
+                if(matrix[i][j] != 0.0)
                     isUpperTriangular = false;
                 j--;
             }
