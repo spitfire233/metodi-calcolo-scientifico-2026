@@ -16,25 +16,23 @@ public class MatrixAlg {
         return isSquared;
     }
 
-
     public static boolean isMatrixLowerTriangular(double[][] matrix) throws IllegalArgumentException {
-        if (!isMatrixSquared(matrix))
+        if(!isMatrixSquared(matrix))
             throw new IllegalArgumentException(MATRIX_NOT_SQUARED_ERROR_MSG);
-
+        int n = matrix.length;
         boolean isLowerTriangular = true;
-        int i = 0;
-        while(i < matrix.length && isLowerTriangular) {
-            int j = i + 1;
-            while (j < matrix[i].length) {
-                if(matrix[i][j] != 0.0)
+        for(int i = 0; i < n && isLowerTriangular; i++) {
+            for(int j = i + 1; j < n; j++) {
+                if (matrix[i][j] != 0.0) {
                     isLowerTriangular = false;
-                j++;
+                    break;
+                }
             }
-            i++;
         }
         return isLowerTriangular;
     }
 
+    // TODO: Refactorare in modo tale che funzioni con isMatrixLowerTriangular ma con la trasposta!
     public static boolean isMatrixUpperTriangular(double[][] matrix) throws IllegalArgumentException {
         if(!isMatrixSquared(matrix))
             throw new IllegalArgumentException(MATRIX_NOT_SQUARED_ERROR_MSG);
@@ -43,12 +41,31 @@ public class MatrixAlg {
         while (i >= 0 && isUpperTriangular) {
             int j = i - 1;
             while (j >= 0) {
-                if(matrix[i][j] != 0.0)
+                if(matrix[i][j] != 0.0) {
                     isUpperTriangular = false;
+                    break;
+                }
                 j--;
             }
             i--;
         }
         return isUpperTriangular;
     }
+
+
+
+
+
+    public static int[] solveTriangularSystem(double[][] matrix) throws IllegalArgumentException {
+        int[] x = new int[matrix.length];
+
+
+
+        return x;
+    }
+
+
+
+
+
 }
