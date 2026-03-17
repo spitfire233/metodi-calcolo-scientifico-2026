@@ -1,8 +1,12 @@
 package unimib.scm.matrix;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import unimib.scm.systems.SolveStrategy;
+import unimib.scm.systems.triangular_systems.LowerTriangularSystemSolver;
+import unimib.scm.systems.triangular_systems.UpperTriangularSystemSolver;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -91,4 +95,120 @@ public class MatrixAlgUnitTest {
         }
         assertTrue(MatrixAlg.isMatrixUpperTriangular(matrix));
     }
+
+    @Test
+    public void whenValidLowerTriangularMatrix_thenSolveCorrectly() {
+        double[][] matrix = {
+                {2, 0, 0},
+                {3, 1, 0},
+                {1, -1, 1}
+        };
+        double[] right_hand_side = {2, 5, 1};
+        SolveStrategy solver = new LowerTriangularSystemSolver();
+        double[] result = solver.solve(matrix, right_hand_side);
+        double[] expected = {1, 2, 2};
+        assertArrayEquals(expected, result, 1e-9);
+    }
+
+    @Test
+    public void whenRightHandSideWrongSizeWithLowerTriangular_thenThrowException() {
+        double[][] matrix = {
+                {1, 0},
+                {3, 4}
+        };
+        double[] right_hand_side = {1};
+        SolveStrategy solver = new LowerTriangularSystemSolver();
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> solver.solve(matrix, right_hand_side)
+        );
+    }
+
+    @Test
+    public void whenMatrixIsNotLowerTriangular_thenThrowException() {
+        double[][] matrix = {
+                {1, 2},
+                {0, 4}
+        };
+        double[] right_hand_side = {1, 1};
+        SolveStrategy solver = new LowerTriangularSystemSolver();
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> solver.solve(matrix, right_hand_side)
+        );
+    }
+
+    @Test
+    public void whenDiagonalContainsZeroInLowerTriangular_thenThrowException() {
+        double[][] matrix = {
+                {1, 0},
+                {3, 0}
+        };
+        double[] right_hand_side = {1, 2};
+        SolveStrategy solver = new LowerTriangularSystemSolver();
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> solver.solve(matrix, right_hand_side)
+        );
+    }
+
+    @Test
+    public void whenValidUpperTriangularMatrix_thenSolveCorrectly() {
+        double[][] matrix = {
+                {2, 3, 1},
+                {0, 1, 4},
+                {0, 0, 2}
+        };
+        double[] right_hand_side = {5, 9, 4};
+        SolveStrategy solver = new UpperTriangularSystemSolver();
+        double[] result = solver.solve(matrix, right_hand_side);
+        double[] expected = {0, 1, 2};
+        assertArrayEquals(expected, result, 1e-9);
+    }
+
+    @Test
+    public void whenRightHandSideWrongSizeWithUpperTriangular_thenThrowException() {
+        double[][] matrix = {
+                {1, 2},
+                {0, 4}
+        };
+        double[] right_hand_side = {1};
+        SolveStrategy solver = new UpperTriangularSystemSolver();
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> solver.solve(matrix, right_hand_side)
+        );
+    }
+
+    @Test
+    public void whenMatrixIsNotUpperTriangular_thenThrowException() {
+        double[][] matrix = {
+                {1, 0},
+                {3, 4}
+        };
+        double[] right_hand_side = {1, 1};
+        SolveStrategy solver = new UpperTriangularSystemSolver();
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> solver.solve(matrix, right_hand_side)
+        );
+    }
+
+    @Test
+    public void whenDiagonalContainsZeroInUpperTriangular_thenThrowException() {
+        double[][] matrix = {
+                {1, 2},
+                {0, 0}
+        };
+        double[] right_hand_side = {3, 4};
+        SolveStrategy solver = new UpperTriangularSystemSolver();
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> solver.solve(matrix, right_hand_side)
+        );
+    }
+
+
+
+
 }
