@@ -14,14 +14,14 @@ import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MatrixAlgUnitTest {
+public class MatrixMethodsUnitTest {
 
     @ParameterizedTest
     @ValueSource(ints = {1,2,3,4})
     public void whenMatrixSquared_thenReturnTrue(int n) {
         Random random = new Random();
         double[][] matrix = new double[n][n];
-        assertTrue(MatrixAlg.isMatrixSquared(matrix));
+        assertTrue(MatrixMethods.isMatrixSquared(matrix));
     }
 
     @ParameterizedTest
@@ -33,7 +33,7 @@ public class MatrixAlgUnitTest {
     })
     public void whenMatrixNotSquared_thenReturnFalse(int n, int m) {
         double[][] matrix = new double[n][m];
-        assertFalse(MatrixAlg.isMatrixSquared(matrix));
+        assertFalse(MatrixMethods.isMatrixSquared(matrix));
     }
 
 
@@ -57,7 +57,7 @@ public class MatrixAlgUnitTest {
                 correctTranspose[j][i] = entry;
             }
         }
-        double[][] result = MatrixAlg.transposeMatrix(matrix);
+        double[][] result = MatrixMethods.transposeMatrix(matrix);
         assertTrue(IntStream.range(0, m)
                 .allMatch(i -> Arrays.equals(correctTranspose[i], result[i])));
     }
@@ -76,7 +76,7 @@ public class MatrixAlgUnitTest {
                 }
             }
         }
-        assertTrue(MatrixAlg.isMatrixLowerTriangular(matrix));
+        assertTrue(MatrixMethods.isMatrixLowerTriangular(matrix));
     }
 
     @ParameterizedTest
@@ -93,7 +93,7 @@ public class MatrixAlgUnitTest {
                 }
             }
         }
-        assertTrue(MatrixAlg.isMatrixUpperTriangular(matrix));
+        assertTrue(MatrixMethods.isMatrixUpperTriangular(matrix));
     }
 
     @Test

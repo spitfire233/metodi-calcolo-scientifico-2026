@@ -2,7 +2,7 @@ package unimib.scm.matrix;
 
 import static unimib.scm.utils.Constants.MATRIX_NOT_SQUARED_ERROR_MSG;
 
-public class MatrixAlg {
+public class MatrixMethods {
 
 
     public static boolean isMatrixSquared(double[][] matrix) {
