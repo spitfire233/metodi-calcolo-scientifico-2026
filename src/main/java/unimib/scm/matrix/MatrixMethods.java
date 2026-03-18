@@ -1,6 +1,7 @@
 package unimib.scm.matrix;
 
 import static unimib.scm.utils.Constants.MATRIX_NOT_SQUARED_ERROR_MSG;
+import static unimib.scm.utils.Constants.TOLERANCE;
 
 public class MatrixMethods {
 
@@ -23,7 +24,7 @@ public class MatrixMethods {
         boolean isLowerTriangular = true;
         for(int i = 0; i < n && isLowerTriangular; i++) {
             for(int j = i + 1; j < n; j++) {
-                if (matrix[i][j] != 0.0) {
+                if (Math.abs(matrix[i][j]) > TOLERANCE) {
                     isLowerTriangular = false;
                     break;
                 }
