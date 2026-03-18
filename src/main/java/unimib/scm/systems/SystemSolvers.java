@@ -1,13 +1,12 @@
-package unimib.scm.systems.triangular_systems;
+package unimib.scm.systems;
 
 import unimib.scm.matrix.MatrixMethods;
-import unimib.scm.systems.SolveStrategy;
 
 import static unimib.scm.utils.Constants.*;
 
-public class LowerTriangularSystemSolver implements SolveStrategy {
-    @Override
-    public double[] solve(double[][] matrix, double[] right_hand_terms) throws IllegalArgumentException {
+public class SystemSolvers {
+
+    public static double[] solveLowerTriangularSystem(double[][] matrix, double[] right_hand_terms) {
         if(matrix.length != right_hand_terms.length) {
             throw new IllegalArgumentException(RIGHT_HAND_SIDE_WITH_WRONG_SIZE);
         } else if(!MatrixMethods.isMatrixLowerTriangular(matrix)) {
@@ -26,8 +25,10 @@ public class LowerTriangularSystemSolver implements SolveStrategy {
         return results;
     }
 
-
-
+    public static double[] solveUpperTriangularSystem(double[][] matrix, double[] right_hand_terms) {
+        double[][] newMatrix = MatrixMethods.transposeMatrix(matrix);
+        return solveLowerTriangularSystem(newMatrix, right_hand_terms);
+    }
 
 
 }

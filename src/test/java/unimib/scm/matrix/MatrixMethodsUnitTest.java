@@ -4,9 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import unimib.scm.systems.SolveStrategy;
-import unimib.scm.systems.triangular_systems.LowerTriangularSystemSolver;
-import unimib.scm.systems.triangular_systems.UpperTriangularSystemSolver;
+import unimib.scm.systems.SystemSolvers;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -104,8 +102,7 @@ public class MatrixMethodsUnitTest {
                 {1, -1, 1}
         };
         double[] right_hand_side = {2, 5, 1};
-        SolveStrategy solver = new LowerTriangularSystemSolver();
-        double[] result = solver.solve(matrix, right_hand_side);
+        double[] result = SystemSolvers.solveLowerTriangularSystem(matrix, right_hand_side);
         double[] expected = {1, 2, 2};
         assertArrayEquals(expected, result, 1e-9);
     }
@@ -117,10 +114,9 @@ public class MatrixMethodsUnitTest {
                 {3, 4}
         };
         double[] right_hand_side = {1};
-        SolveStrategy solver = new LowerTriangularSystemSolver();
         assertThrows(
                 IllegalArgumentException.class,
-                () -> solver.solve(matrix, right_hand_side)
+                () -> SystemSolvers.solveLowerTriangularSystem(matrix, right_hand_side)
         );
     }
 
@@ -131,10 +127,9 @@ public class MatrixMethodsUnitTest {
                 {0, 4}
         };
         double[] right_hand_side = {1, 1};
-        SolveStrategy solver = new LowerTriangularSystemSolver();
         assertThrows(
                 IllegalArgumentException.class,
-                () -> solver.solve(matrix, right_hand_side)
+                () -> SystemSolvers.solveLowerTriangularSystem(matrix, right_hand_side)
         );
     }
 
@@ -145,10 +140,9 @@ public class MatrixMethodsUnitTest {
                 {3, 0}
         };
         double[] right_hand_side = {1, 2};
-        SolveStrategy solver = new LowerTriangularSystemSolver();
         assertThrows(
                 IllegalArgumentException.class,
-                () -> solver.solve(matrix, right_hand_side)
+                () -> SystemSolvers.solveLowerTriangularSystem(matrix, right_hand_side)
         );
     }
 
@@ -160,8 +154,7 @@ public class MatrixMethodsUnitTest {
                 {0, 0, 2}
         };
         double[] right_hand_side = {5, 9, 4};
-        SolveStrategy solver = new UpperTriangularSystemSolver();
-        double[] result = solver.solve(matrix, right_hand_side);
+        double[] result = SystemSolvers.solveUpperTriangularSystem(matrix, right_hand_side);
         double[] expected = {0, 1, 2};
         assertArrayEquals(expected, result, 1e-9);
     }
@@ -173,10 +166,9 @@ public class MatrixMethodsUnitTest {
                 {0, 4}
         };
         double[] right_hand_side = {1};
-        SolveStrategy solver = new UpperTriangularSystemSolver();
         assertThrows(
                 IllegalArgumentException.class,
-                () -> solver.solve(matrix, right_hand_side)
+                () -> SystemSolvers.solveUpperTriangularSystem(matrix, right_hand_side)
         );
     }
 
@@ -187,10 +179,9 @@ public class MatrixMethodsUnitTest {
                 {3, 4}
         };
         double[] right_hand_side = {1, 1};
-        SolveStrategy solver = new UpperTriangularSystemSolver();
         assertThrows(
                 IllegalArgumentException.class,
-                () -> solver.solve(matrix, right_hand_side)
+                () -> SystemSolvers.solveUpperTriangularSystem(matrix, right_hand_side)
         );
     }
 
@@ -201,10 +192,9 @@ public class MatrixMethodsUnitTest {
                 {0, 0}
         };
         double[] right_hand_side = {3, 4};
-        SolveStrategy solver = new UpperTriangularSystemSolver();
         assertThrows(
                 IllegalArgumentException.class,
-                () -> solver.solve(matrix, right_hand_side)
+                () -> SystemSolvers.solveUpperTriangularSystem(matrix, right_hand_side)
         );
     }
 
